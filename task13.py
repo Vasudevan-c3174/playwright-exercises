@@ -48,28 +48,5 @@ with sync_playwright() as p:
     # expected_total = round((price_a * quantity_a) + (price_b * quantity_b), 2)
     # print("Expected total:", expected_total)
 
-    # total_text = page.locator('[data-test="cart-total"]')
-    # actual_total = float(total_text.text_content().strip()[1:])
-    # print("Actual total:", actual_total)
-
-    # assert expected_total == actual_total
-    # print("Cart total is correct for initial quantities")
-
-   
-    # increase_btn_a = page.locator('button[data-test="increase-quantity"]').nth(0)
-    # increase_btn_a.click()
-    # page.wait_for_timeout(3000)
-
-    # quantity_a_updated = float(quantities.nth(0).input_value())
-    # print("Updated quantity of Product A:", quantity_a_updated)
-
-    # expected_total_updated = round((price_a * quantity_a_updated) + (price_b * quantity_b), 2)
-    # print("Expected total after quantity change:", expected_total_updated)
-
-    # actual_total_updated = float(total_text.text_content().strip()[1:])
-    # print("Actual total after quantity change:", actual_total_updated)
-
-    # assert expected_total_updated == actual_total_updated
-    # print("Cart total is correctly updated after quantity change")
-
+    
     browser.close()
