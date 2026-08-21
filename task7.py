@@ -10,39 +10,39 @@ with sync_playwright() as p:
     page.wait_for_timeout(3000)
 
      
-    p_name =page.locator('h1[data-test="product-name"]')
-    paname = p_name.text_content().strip()
-    print(paname)
-    #page.wait_for_timeout(3000)
-    p_price = page.locator('span[aria-label="unit-price"]') 
-    paprice = p_price.text_content().strip()
-    print(paprice) 
-    #page.wait_for_timeout(3000)
+    product_name =page.locator('h1[data-test="product-name"]')
+    product_name_text = product_name.text_content().strip()
+    print(product_name_text)
+    
+    product_price = page.locator('span[aria-label="unit-price"]') 
+    product_price_text = product_price.text_content().strip()
+    print(product_price_text) 
+    
 
     
 
-    p_description = page.locator('p[id="description"]')
-    print(p_description.text_content())
-    #page.wait_for_timeout(3000)
+    product_description = page.locator('p[id="description"]')
+    print(product_description.text_content())
+   
 
-    cart = page.locator('button[data-test="add-to-cart"]')
-    cart.click()
-    print(cart.text_content())
-    page.wait_for_timeout(3000)
+    cart_page = page.locator('button[data-test="add-to-cart"]')
+    cart_page.click()
+    print(cart_page.text_content())
+    
   
-    page.locator('[data-test="nav-cart"]').click()   
+    page.locator('[data-test="nav-cart"]').click()  
+    page.wait_for_timeout(3000) 
     expect(page.locator('[data-test="product-title"]'))
-    page.wait_for_timeout(3000)
 
-    cname=page.locator('span[data-test="product-title"]')
-    caname = cname.text_content().strip()
-    print(caname)
-    cprice=page.locator('span[data-test="product-price"]') 
-    caprice = cprice.text_content().strip()[1:]
-    print(caprice)
+    cart_product_name=page.locator('span[data-test="product-title"]')
+    cart_product_name_text = cart_product_name.text_content().strip()
+    print(cart_product_name_text)
+    cart_product_price=page.locator('span[data-test="product-price"]') 
+    cart_product_price_text = cart_product_price.text_content().strip()[1:]
+    print(cart_product_price_text)
 
-    assert paname == caname
-    assert paprice == caprice
+    assert product_name_text == cart_product_name_text
+    assert product_price_text == cart_product_price_text
     print("both are same")
 
     browser.close() 
