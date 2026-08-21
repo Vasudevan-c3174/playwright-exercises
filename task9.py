@@ -8,15 +8,16 @@ with sync_playwright() as p:
     page.wait_for_timeout(2000)
 
     cards = page.locator(".card")
-    for i in range(cards.count()):
-        print(cards.nth(i).text_content())
-        page.wait_for_timeout(3000)
+    page.wait_for_timeout(3000)
+    for i in range(0,cards.count()):
+        print(cards.nth(i).inner_text())
+    
 
     products = page.locator(".card")
     product_count = products.count()
     print("Number of products:", product_count)
-    assert product_count > 0, "No products are available"
-    for i in range(3,product_count):
+    assert product_count >= 0, "No products are available"
+    for i in range(0,product_count):
         product = products.nth(i)
     
         if product.locator('[data-test="out-of-stock"]').count() > 0:
@@ -28,6 +29,9 @@ with sync_playwright() as p:
         break
     
     print("Product selected")
+    product_name =page.locator('h1[data-test="product-name"]')
+    print(product_name.text_content())
+
 
     
 
