@@ -50,16 +50,12 @@ with sync_playwright() as p:
         print("Cart locator matched:",cart_count,"element(s)")
 
         
-        cart_product = page.get_by_text(product_name,exact=False)
-        if cart_product.count() > 0:
-            print("Product added to cart successfully")
-        else:
-            print("Product name was not found exactly.")
+        cart_product = page.get_by_text(product_name, exact=False)
+        expect(cart_product).to_be_visible()
+        print("Product added to cart successfully")
 
         cart_items = page.locator('[data-name="Active Items"]')
-
         expect(cart_items).to_be_visible()
-
         print("Cart contains the product.")
 
 
