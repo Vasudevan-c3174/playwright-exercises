@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright, expect
 
 BASE_URL = "https://practicesoftwaretesting.com/"
 
-PRODUCT_NAME = " Bolt Cutters "
+PRODUCT_NAME = "Bolt Cutters"
 
 
 with sync_playwright() as p:
@@ -10,15 +10,13 @@ with sync_playwright() as p:
     browser = p.chromium.launch(headless=False)
     page = browser.new_page()
 
-    page.goto(BASE_URL, wait_until="domcontentloaded")
+    page.goto(BASE_URL)
 
     product = page.get_by_text(PRODUCT_NAME, exact=True)
     expect(product).to_be_visible()
     print("Product found:", PRODUCT_NAME)
 
-    product_card = product.locator(
-        "xpath=ancestor::a[contains(@href, '/product/')]"
-    )
+    product_card = page.locator("a[href*='/product/']").filter(has_text=PRODUCT_NAME)
     expect(product_card).to_be_visible()
     print("Product card found")
 
@@ -42,17 +40,11 @@ with sync_playwright() as p:
     assert child_count > 0, "Product card has no child elements"
     print("Child elements found")
 
-    sibling = product.locator("xpath=following-sibling::*").first
-
-    if sibling.count() > 0:
-        print("Sibling element found")
-
     nested_element = product_card.locator("img")
     expect(nested_element).to_be_visible()
     print("Nested element found")
 
     product_card.click()
-   
 
     product_heading = page.locator("h1")
     expect(product_heading).to_be_visible()
