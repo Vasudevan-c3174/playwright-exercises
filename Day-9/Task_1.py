@@ -56,11 +56,11 @@ with sync_playwright() as p:
         else:
             print("Product name was not found exactly.")
 
-            cart_items = page.locator('[data-name="Active Items"]')
-            if cart_items.count() > 0:
-                print("Cart contains the product.")
-            else:
-                raise Exception("Product was not found in cart")
+        cart_items = page.locator('[data-name="Active Items"]')
+
+        expect(cart_items).to_be_visible()
+
+        print("Cart contains the product.")
 
 
         browser.close()
