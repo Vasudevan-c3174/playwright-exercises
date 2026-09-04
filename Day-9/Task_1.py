@@ -7,27 +7,20 @@ with sync_playwright() as p:
         page.goto("https://www.amazon.in/")
         
 
-        page.locator("#twotabsearchtextbox").fill(
-            "clean code by robert c. martin"
-        )
+        page.get_by_placeholder("Search Amazon").fill("clean code by robert c. martin")
         page.keyboard.press("Enter")
         
 
-        product_cards = page.locator(
-            'div[data-component-type="s-search-result"][data-asin]'
-        )
-
+        product_cards = page.locator('div[data-component-type="s-search-result"][data-asin]')
         print("Product cards found:", product_cards.count())
 
-        product_card = product_cards.first
-
-        product_name = product_card.locator("h2").inner_text()
+        product_name = product_cards.first.locator("h2").inner_text()
         print("Product Name:", product_name)
 
-        price = product_card.locator(".a-price").first.inner_text()
+        price = product_cards.first.locator(".a-price").first.inner_text()
         print("Product Price:", price)
 
-        description = product_card.inner_text()
+        description = product_cards.first.inner_text()
         print("Product Description:")
         print(description)
         broad_locator = page.get_by_role("button")
